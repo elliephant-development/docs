@@ -1,29 +1,29 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "",
+  "name": "Elliephant API Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/white-logo.svg",
+    "light": "/logo/pink-logo.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#ff0054",
+    "light": "#ff0054",
+    "dark": "#ff0054",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#ff0054",
+      "to": "#ff0054"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@elliephant.com"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Main Site",
+    "url": "https://members.elliephant.com"
   },
   "tabs": [
     {
@@ -35,10 +35,10 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "introduction"
     },
     {
-      "name": "Community",
+      "name": "API Reference",
       "icon": "slack",
       "url": "https://mintlify.com/community"
     },
@@ -50,11 +50,10 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Introduction",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "introduction/overview",
+        "introduction/apikey"
       ]
     },
     {
@@ -84,8 +83,8 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "facebook": "https://www.facebook.com/profile.php?id=100083624143407",
+    "linkedin": "https://au.linkedin.com/company/elliephant-gifts",
+    "instagram": "https://www.instagram.com/elliephantgifts"
   }
 }
