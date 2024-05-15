@@ -1,50 +1,60 @@
 ---
 title: API Credentials
 sidebarTitle: "API Credentials"
-description: 'Welcome to our API documentation!<br/> Below you can find all the details including setting up your credentials and also how to retreive products, place orders and so much more.'
+description: 'You can have 2 sets of credentials, one for the sandbox and one for production'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-image.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-image.png"
-  alt="Hero Dark"
-/>
+## Make sure you save your API Password!
 
-## Available APIs
+Your API password is a secure key that we use to Authenticate you. When you request your credentials you will only be shown the password **ONCE** so make sure you keep all the details in a secure place. You can reset your API password but your old password will be deleted and no longer usable. You will then need to make sure you update the password in all locations that you are using it in.
 
-This API provides a few different methods to help you in using Elliephants services.
+## Sandbox Credentials
 
-<CardGroup cols={2}>
-  <Card
-    title="Products"
-    icon="box"
-    href="#"
-  >
-    Easy way to retreave a list of products or a specific product
-  </Card>
-  <Card
-    title="Order"
-    icon="cash-register"
-    href="#"
-  >
-    You can view your order information, place an order or request a gifting link
-  </Card>
-</CardGroup>
+To get your sandbox credentials you will first need to send an API request to developer@elliephant.com.
+Once we receive your request we will set you up with logins to our sandbox site - sandbox.elliephant.com.
+From here you will need to follow the following instructions to get your API credentials: 
 
-## Production and sandbox environments
+1. Login to the Elliephant demo site at https://sandbox.elliephant.com using the username and password provided
+2. In the top right corner, click on your name with the arrow
+<img height="200" src="/images/credentials-top-right.jpg" />
+3. In the dropdown select "API Connection"
+4. If you have not yet enabled it, click on "Activate API Credentials"
+5. Once enabled you will be able to see your "Client ID", "API Key" and "API Password". Make sure to save all these details in a safe place.
+6. You should also set the credit limit that you would like to be notified at when you are low.
 
-Elliephant's API has two environments:
+_**Please note:** These credentials are only going to work in the API endpoint for the staging site_
 
-- **Production:** https://api.elliephant.com
-- **Sandbox:** https://api-sandbox.elliephant.com
+The API endpoint for the staging site is https://api-sandbox.elliephant.com
 
-## Use with Postman
+## Production Credentials
 
-We have set up our API to work with Postman, you can find the link here:
+To get your live production credentials you will first need to have registered for the live site.
+This would have been done durring the site demo and inital platform discussion.
+If you have not been provided access please email us at developer@elliephant.com.
+From here you will need to follow the following instructions to get your API credentials: 
 
-- [Postman](https://google.com)
+1. Login to the Elliephant demo site at https://members.elliephant.com using the username and password provided
+2. In the top right corner, click on your name with the arrow
+<img height="200" src="/images/credentials-top-right.jpg" />
+3. In the dropdown select "API Connection"
+4. If you have not yet enabled it, click on "Activate API Credentials"
+5. Once enabled you will be able to see your "Client ID", "API Key" and "API Password". Make sure to save all these details in a safe place.
+6. You should also set the credit limit that you would like to be notified at when you are low.
+
+_**Please note:** These credentials are only going to work in the API endpoint for the production site_
+
+The API endpoint for the production site is https://api.elliephant.com
+
+## Resetting your API Password
+
+As you go on using the API you may need to reset your API Password, please be advised that when you do this you will only be able to see the password once so make sure you save it.
+Additionally, when you reset your password the old password will no longer be able to be used. So make sure you change the password in all locations.
+To reset the password, you will need to follow the following instructions:
+
+1. Login to the Elliephant demo site at https://members.elliephant.com using the username and password provided
+2. In the top right corner, click on your name with the arrow
+<img height="200" src="/images/credentials-top-right.jpg" />
+3. In the dropdown select "API Connection"
+4. In the "API Details" section you will have an option to "Reset API Password"
+<img height="200" src="/images/reset-api-password.png" />
+5. Your page will then reload and you will be able to see the new password.

@@ -1,0 +1,25 @@
+---
+title: Authentication
+sidebarTitle: "Authentication"
+description: 'Production and Sandbox accounts are separate, and you have different API keys for each environment for isolation'
+---
+
+## Getting your credentials
+
+If you have followed the documentation in order you should already have your credentials. If not you can get your credentials by [clicking here](/introduction/apikey).
+
+## Authentication header
+
+You need to send your credentials in the header of every API call sent. You will need to include the "Client ID", "API Key" and "API Password". These need to be sent via the header with the correct key names which can be found below: 
+
+| Credentials    | Key               |
+| -------------- | ----------------- |
+| Client ID      | CLIENT-ID         |
+| API Key        | API-KEY           |
+| API Password   | API-PASSWORD      |
+
+```
+'CLIENT-ID: {Your Client ID}',
+'API-KEY: {Your API Key}',
+'API-PASSWORD: {Your API Password}'
+```

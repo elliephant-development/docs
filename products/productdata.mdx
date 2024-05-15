@@ -1,0 +1,29 @@
+---
+title: Product Data
+sidebarTitle: "Product Data"
+description: 'The array of data returned containing all the product data'
+---
+
+All the fields of data returned as part of the product array.
+
+| Field                         | Description                           |
+| ----------------------------- | ------------------------------------- |
+| `product_id`                  | The product id used to identify the product on our site. You use this value as the ID in the [GET/api/product/:id](/api-reference/endpoint/products) method. |
+| `product_sku`                 | The SKU of the product                          |
+| `product_name`                | Full name of the product |
+| `product_description`         | Full description of the product |
+| `product_short_description`   | The short description of the product used to store important information about the product |
+| `product_type`                | Determine if the product is a simple product or variable product with variable meaning that it has variations. This will either be `simple` or `variable` |
+| `digital_physical`            | Determine if the product is a Physical product or Digital product. This will either be `physical` or `digital` |
+| `price`                       | _Only available for `simple` products._ <br/> This will be the price of the product |
+| `price_currency`              | _Only available for `simple` products._ <br/> This will be the currency that the price is in |
+| `attributes`                  | _Only available for `variable` products._ <br/> An array of attribute details connected to the product. You can find more information about the information contained in this value [here](/products/productattributes) |
+| `variations`                  | _Only available for `variable` products._ <br/> An array of variations and prices connected to the product. You can find more information about the information contained in this value [here](/products/productvariations) |
+| `track_inventory`             | Will either be `Y` or `N` on if we track the inventory for this product |
+| `stock_status`                | The stock status of the product and if it is in stock or not. Values can be either `in_stock` or `out_of_stock` |
+| `stock_qty`                   | The total amount of stock available |
+| `featured_image`              | A full URL of the main product image |
+| `additional_images`           | An array of URLs of the additional images for the product. This might be empty depending on the product. |
+| `product_vendor`              | An array of vendor details. You can find more information about the information contained in this value [here](/products/productvendor) |
+| `shipping_cost`               | The cost of shipping this item. |
+| `shipping_details`            | An array of shipping details. You can find more information about the information contained in this value [here](/products/productshipping) |

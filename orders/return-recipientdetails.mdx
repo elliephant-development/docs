@@ -1,0 +1,16 @@
+---
+title: Recipient Details Returned 
+sidebarTitle: "Recipient Details Returned"
+description: 'The data you get returned regarding your order'
+---
+
+The details you send as part of the [GET/api/order/:id](/api-reference/endpoint/products) method in the `recipient_details` field of the `recipients` field.
+
+| Field              | Description                                                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`             | The name of your recipient |
+| `email`            | The full email address of your recipient  |
+| `phone_number`     | The phone number of your recipient |
+| `delivery_address` | An array containing the address of the recipient. You can find more information about the information contained in this value [here](/orders/return-deliveryaddress) |
+| `email_message`    | The message that gets attached to your gifting email and page |
+| `delivery_notes`   | Any notes assigned to the delivery |

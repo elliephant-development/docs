@@ -1,195 +1,250 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API documentation",
+        "version": "1.0.0",
+        "description": "This is an API converted from a Postman collection."
     },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
+    "servers": [
+        {
+            "url": "https://api.elliephant.com"
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+        {
+            "url": "https://api-sandbox.elliephant.com"
         }
-      }
+    ],
+    "paths": {
+        "/api/products": {
+            "get": {
+                "summary": "Retrieve a list of products",
+                "operationId": "listProducts",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of products to return per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 200
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number of the products listing.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                      "description": "Successful response",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "properties": {
+                              "total_products": {
+                                "type": "integer",
+                                "description": "Total number of products available."
+                              },
+                              "total_products_in_query": {
+                                "type": "integer",
+                                "description": "Number of products returned in the current query."
+                              },
+                              "current_page": {
+                                "type": "integer",
+                                "description": "The current page number in the paginated result set."
+                              },
+                              "total_pages": {
+                                "type": "integer",
+                                "description": "Total number of pages in the result set."
+                              },
+                              "products": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "product_id": {
+                                      "type": "integer",
+                                      "description": "Unique identifier for the product."
+                                    },
+                                    "product_name": {
+                                      "type": "string",
+                                      "description": "Name of the product."
+                                    },
+                                    "product_description": {
+                                      "type": "string",
+                                      "description": "Detailed description of the product."
+                                    },
+                                    "price": {
+                                      "type": "string",
+                                      "description": "Price of the product."
+                                    },
+                                    "stock_status": {
+                                      "type": "string",
+                                      "description": "Stock availability status of the product."
+                                    }
+                                    
+                                  }
+                                },
+                                "description": "Array of product details."
+                              }
+                            }
+                          },
+                          "example": {
+                            
+                          }
+                        }
+                      }
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "get": {
+                "summary": "Retrieve a single product",
+                "operationId": "getProduct",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/api/order": {
+            "get": {
+                "summary": "Retrieve a specific order",
+                "operationId": "getOrder",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Place an order",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer"
+                                    },
+                                    "variation_id": {
+                                        "type": "integer"
+                                    },
+                                    "recipient_details": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "first_name": {
+                                                    "type": "string"
+                                                },
+                                                "last_name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "delivery_address": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "address_line_1": {
+                                                            "type": "string"
+                                                        },
+                                                        "suburb": {
+                                                            "type": "string"
+                                                        },
+                                                        "state": {
+                                                            "type": "string"
+                                                        },
+                                                        "postcode_zipcode": {
+                                                            "type": "string"
+                                                        },
+                                                        "country": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "base_location": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Order successfully placed"
+                    }
+                }
+            }
+        }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "components": {
+        "securitySchemes": {
+            "ClientIdAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "CLIENT-ID"
+            },
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "API-KEY"
+            },
+            "ApiPasswordAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "API-PASSWORD"
             }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
-    }
-  }
+    "security": [
+        {
+            "ClientIdAuth": [],
+            "ApiKeyAuth": [],
+            "ApiPasswordAuth": []
+        }
+    ]
 }

@@ -1,0 +1,18 @@
+---
+title: Recipient Details Send 
+sidebarTitle: "Recipient Details Send"
+description: 'The data you send with the order creation'
+---
+
+The details you send as part of the [POST/api/order](/api-reference/endpoint/products) or [POST/api/gift-link](/api-reference/endpoint/products) method in the `recipient_details` field.
+
+Some fields are only required in one method or the other
+
+| Field                                                                | Description                                                                                                                                    |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `first_name`                                                         | The first name of your recipient |
+| `last_name`                                                          | The last name of your recipient |
+| `email`                                                              | The full email address of your recipient  |
+| `phone_number` <br/> _Only requrired for POST/api/order_             | The phone number of your recipient |
+| `delivery_address` <br/> _Only requrired for POST/api/order_         | An array containing the address of the recipient. You can find more information about the information contained in this value [here](/orders/send-deliveryaddress) |
+| `redemption_message` <br/> _Only requrired for POST/api/gift-link_   | The message that gets attached to your gifting link |

@@ -1,0 +1,15 @@
+---
+title: Product Attributes 
+sidebarTitle: "Product Attributes"
+description: 'The data returned with the full product list'
+---
+
+The details returned as part of the [GET/api/products](/api-reference/endpoint/products) method in the `attributes` field.
+
+Only available for `variable` products.
+
+| Field      | Description                                                                |
+| ---------- | -------------------------------------------------------------------------- |
+| `id`       | The id of the attribute that we use to identify the value                  |
+| `name`     | The name of the attribute. An example of this might be "Size" or "Colour"  |
+| `option`   | An array of available options                                              |

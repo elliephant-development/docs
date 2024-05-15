@@ -39,13 +39,8 @@
     },
     {
       "name": "API Reference",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "icon": "code",
+      "url": "api-reference"
     }
   ],
   "navigation": [
@@ -53,32 +48,80 @@
       "group": "Introduction",
       "pages": [
         "introduction/overview",
-        "introduction/apikey"
+        "introduction/apikey",
+        "introduction/authentication",
+        "introduction/creditsystem"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Products",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "products/overview",
+        "products/fullproductreturn",
+        "products/productdata",
+        "products/productattributes",
+        "products/productvariations",
+        "products/productvendor",
+        "products/productshipping"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Orders",
+      "pages": [
+        "orders/overview",
+        {
+          "group": "Data Sent",
+          "pages": [
+            "orders/send-orderdetails",
+            "orders/send-recipientdetails",
+            "orders/send-deliveryaddress"
+          ]
+        },
+        {
+          "group": "Data Returned",
+          "pages": [
+            "orders/return-orderdetails",
+            "orders/return-orderbranding",
+            "orders/return-ordertotals",
+            "orders/return-orderrecipients",
+            "orders/return-recipientdetails",
+            "orders/return-deliveryaddress"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Elliephant Credit",
+      "pages": [
+        "credit/overview",
+        "credit/getbalance"
+      ]
+    },
+    {
+      "group": "API Reference",
       "pages": [
         "api-reference/introduction"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Products",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/products/getlist",
+        "api-reference/endpoint/products/getproduct"
+      ]
+    },
+    {
+      "group": "Orders",
+      "pages": [
+        "api-reference/endpoint/orders/getorder",
+        "api-reference/endpoint/orders/placeorder",
+        "api-reference/endpoint/orders/placegiftorder"
+      ]
+    },
+    {
+      "group": "Elliephant Credit",
+      "pages": [
+        "api-reference/endpoint/credit/getbalance"
       ]
     }
   ],

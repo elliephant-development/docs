@@ -1,0 +1,17 @@
+---
+title: Order Totals Returned 
+sidebarTitle: "Order Totals Returned"
+description: 'The data you get returned regarding your order'
+---
+
+The details returned as part of the [GET/api/order/:id](/api-reference/endpoint/products) method in the `order_totals` field.
+
+| Field            | Description                                                              |
+| ---------------- | ------------------------------------------------------------------------ |
+| `currency`       | The currency you payed in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD  |
+| `product_price`  | The price of the product at time of purchase   |
+| `qty`            | Total amount of items purchased  |
+| `subtotal`       | The subtotal of the order (calculated by the equation `product_price` x `qty`)  |
+| `shipping_cost`  | The cost of the shipping at time of purchase  |
+| `order_fee`      | The cost of the service fee at the tiem of purchase  |
+| `order_total`    | The total paid for the order (calculated by the equation `subtotal` + `shipping_cost` + `order_fee`)  |

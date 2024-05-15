@@ -1,0 +1,15 @@
+---
+title: Recipients Returned 
+sidebarTitle: "Recipients Returned"
+description: 'The data you get returned regarding your order'
+---
+
+The details you send as part of the [GET/api/order/:id](/api-reference/endpoint/products) method in the `recipients` field.
+
+| Field                | Description                                                                                                                                    |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `suborder_id`        | The id of the order used for identification in our system |
+| `suborder_number`    | The order number that is used for reference, this will be in the format EO-00000-00 |
+| `recipient_details`  | An array of information about the recipient. You can find more information about the information contained in this value [here](/orders/return-recipientdetails)  |
+| `redemption_status`  | Current redemption status which will either be `NULL` or an array containing the `status` and `date` in the format YYYY-MM-DD HH:MM |
+| `product_selected`   | The final product selected. This will be an array containing `product_id` and `variation_id`. This connects to the product id and variation id retreved in the [GET/api/product/:id](/api-reference/endpoint/products) method |

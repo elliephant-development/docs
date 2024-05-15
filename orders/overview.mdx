@@ -1,0 +1,27 @@
+---
+title: Products Overview
+sidebarTitle: "Overview"
+description: 'Here you get access to our product catalog'
+---
+
+Using the following methods you can do the following:
+
+- **Get order info:** Using this method you can get a full list of our products and product information - [GET/api/order/:id](/api-reference/endpoint/products)
+- **Place an order:** Using post data you can place a standard order - [GET/api/order](/api-reference/endpoint/products)
+- **Place a gifting order:** Using post data you can place an order and retreive a gifting link - [GET/api/gift-link](/api-reference/endpoint/products)
+
+## Data Returned
+
+You can find more details about the data returned here:
+- **Order Details:** Details returned from the "Retrieve a list of products" method - [more info](/orders/return-orderdetails)
+- **Order Branding:** Product data returned either in an array or on it's own - [more info](/orders/return-orderbranding)
+- **Order Totals:** Array of data related to the attributes of the product. Only available for `variable` products - [more info](/orders/return-ordertotals)
+- **Order Recipients:** Array of data related to the vendor of the product. Only available for `variable` products - [more info](/orders/return-orderrecipients)
+    - **Recipient Details:** Array of data related to the vendor of the product. Only available for `variable` products - [more info](/orders/return-recipientdetails)
+    - **Delivery Address:** Array of data related to the vendor of the product. Only available for `variable` products - [more info](/orders/return-deliveryaddress)
+
+## Data Sent
+
+- **Order Details:** Details returned from the "Retrieve a list of products" method - [more info](/orders/send-orderdetails)
+- **Recipient Details:** Array of data related to the vendor of the product. Only available for `variable` products - [more info](/orders/send-recipientdetails)
+    - **Delivery Address:** Array of data related to the vendor of the product. Only available for `variable` products - [more info](/orders/send-deliveryaddress)

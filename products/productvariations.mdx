@@ -1,0 +1,19 @@
+---
+title: Product Variations 
+sidebarTitle: "Product Variations"
+description: 'The data returned with the full product list'
+---
+
+The details returned as part of the [GET/api/products](/api-reference/endpoint/products) method in the `variations` field.
+
+Only available for `variable` products.
+
+| Field                      | Description                                                                |
+| -------------------------- | -------------------------------------------------------------------------- |
+| `id`                       | The id of the variation that we use to identify the value. This is what is used as the `variation_id` when placing an order |
+| `sku`                      | The SKU of the variation  |
+| `price`                    | The price of the variation                                              |
+| `price_currency`           | The currency that the price is in for the variation                                              |
+| `variation_qty`            | The total amount of stock available                                              |
+| `variation_stock_status`   | The stock status of the variation and if it is in stock or not. Values can be either `in_stock` or `out_of_stock` |
+| `options`                  | An array of the attribute combination used for this variation                                               |

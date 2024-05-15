@@ -1,0 +1,19 @@
+---
+title: Order Data Send 
+sidebarTitle: "Order Data Send"
+description: 'The data you send with the order creation'
+---
+
+The details you send as part of the [POST/api/order](/api-reference/endpoint/products) or [POST/api/gift-link](/api-reference/endpoint/products) method.
+
+Some fields are only required in one method or the other
+
+| Field                   | Description                                                                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `product_id`            | This the product id of the product that you want to gift. This is found in the [product return](/products/productdata) |
+| `variation_id` <br/> _(optional)_          | The variation id of the product you would like to gift. Found in the [product variations](/products/productvariations)                                                                                                      |
+| `currency`              | The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD  |
+| `base_location`         | The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia |
+| `gift_of_choice` <br/> _Only requrired for POST/api/gift-link_        | An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N` |
+| `order_branding` <br/> _Only requrired for POST/api/gift-link_        | The type of branding that you are want for your gift link. This is either `elliephant` or `company`. `company` can only be used if your company branding as been set in your company profile. |
+| `recipient_details`     | An array of information about the recipient. You can find more information about the information contained in this value [here](/orders/send-recipientdetails) |

@@ -1,0 +1,17 @@
+---
+title: Product List Returned 
+sidebarTitle: "Product List Returned"
+description: 'The data returned with the full product list'
+---
+
+The details returned as part of the [GET/api/products](/api-reference/endpoint/products) method.
+
+There are a number of fields returned as part of the full list return, here are some details about them. Please note that you can request both the total amount of products you want returned as well as the page you want returned.
+
+| Field                       | Description                                                                                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `total_products`            | This is the total amount of products available for you to view and import                                                                      |
+| `total_products_in_query`   | The total amount of products in this query                                                                                                     |
+| `current_page`              | The current page that you are on                                                                                                               |
+| `total_pages`               | Total amount of pages                                                                                                                          |
+| `products`                  | An array of products and their data. You can find more information about the information contained in this value [here](/products/productdata) |

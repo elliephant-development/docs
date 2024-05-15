@@ -1,0 +1,25 @@
+---
+title: Order Details Returned 
+sidebarTitle: "Order Details Returned"
+description: 'The data you get returned regarding your order'
+---
+
+The details you send as part of the [GET/api/order/:id](/api-reference/endpoint/products) method.
+
+| Field                | Description                                                                              |
+| -------------------- | ---------------------------------------------------------------------------------------- |
+| `order_id`           | The ID of the order in our system, this is the ID used to get the order details later |
+| `order_number`       | The order number that is used for reference, this will be in the format EO-00000 |
+| `order_date`         | The date of the order placed in the format YYYY-MM-DD HH:MM |
+| `order_status`       | The status of the order. This will be either `failed`, `created`, `paid` or `cancieled` |
+| `gift_order_method`  | The method that order is placed or gifted. This will be either `email`, `direct`, `link`, `api-purchase` or `api-giftlink`. |
+| `link_how_many_times`  | _Only sent if `gift_order_method == link`_ <br/> The number of how many times the link can be redeemed |
+| `link_url`  | _Only sent if `gift_order_method == link`_ <br/> The URL used to redeem the gift |
+| `link_message`  | _Only sent if `gift_order_method == link`_ <br/> The message included on the link redemption page |
+| `gift_of_choice`     | An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N` |
+| `branding_selected`  | The type of branding that you are want for your gift link or email. This is either `elliephant`, `company` or `custom`. `company` can only be used if your company branding as been set in your company profile. `custom` can only be set if placed on the store. |
+| `branding_options`   | An array containing the branding values. You can find more information about the information contained in this value [here](/orders/return-orderbranding) |
+| `product_offered`    | The original product offered. This will be an array containing `product_id` and `variation_id`. This connects to the product id and variation id retreved in the [GET/api/product/:id](/api-reference/endpoint/products) method |
+| `order_totals`       | An array containing the order totals. You can find more information about the information contained in this value [here](/orders/return-ordertotals) |
+| `email_template`     | The template used for the emails sent. This could be either `celebration`, `generic`, `sympathy` or `christmas`. This can only be set if placed on the store. |
+| `recipients`         | An array containing the recipient details. You can find more information about the information contained in this value [here](/orders/return-return-orderrecipients) |
