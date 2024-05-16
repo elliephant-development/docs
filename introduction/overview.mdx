@@ -52,6 +52,1482 @@ Elliephant's API has two environments:
 
 ## Use with Postman
 
-We have set up our API to work with Postman, you can find the link here:
+We have set up our API to work with Postman, you can use the following .json file and import into Postman:
 
-- [Postman](https://google.com)
+<CodeGroup>
+
+```json postman-import.json
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Elliephant API",
+        "version": "1.0.0",
+        "description": "With this API you can retrieve products, place orders, and so much more."
+    },
+    "servers": [
+        {
+            "url": "https://api.elliephant.com"
+        },
+        {
+            "url": "https://api-sandbox.elliephant.com"
+        }
+    ],
+    "paths": {
+        "/api/products": {
+            "get": {
+                "summary": "Retrieve a list of products",
+                "operationId": "listProducts",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of products to return per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 200
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number of the products listing.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "total_products": {
+                                            "type": "integer",
+                                            "description": "This is the total amount of products available for you to view and import."
+                                        },
+                                        "total_products_in_query": {
+                                            "type": "integer",
+                                            "description": "The total amount of products in this query."
+                                        },
+                                        "current_page": {
+                                            "type": "integer",
+                                            "description": "The current page that you are on."
+                                        },
+                                        "total_pages": {
+                                            "type": "integer",
+                                            "description": "Total amount of pages."
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "description": "An array of products and their data.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "product_id": {
+                                                        "type": "integer",
+                                                        "description": "The product id used to identify the product on our site."
+                                                    },
+                                                    "product_sku": {
+                                                        "type": "string",
+                                                        "description": "The SKU of the product."
+                                                    },
+                                                    "product_name": {
+                                                        "type": "string",
+                                                        "description": "Full name of the product."
+                                                    },
+                                                    "product_description": {
+                                                        "type": "string",
+                                                        "description": "Full description of the product."
+                                                    },
+                                                    "product_short_description": {
+                                                        "type": "string",
+                                                        "description": "The short description of the product used to store important information about the product."
+                                                    },
+                                                    "product_type": {
+                                                        "type": "string",
+                                                        "description": "Determine if the product is a simple product or variable product with variable meaning that it has variations. This will either be `simple` or `variable`"
+                                                    },
+                                                    "digital_physical": {
+                                                        "type": "string",
+                                                        "description": "Determine if the product is a Physical product or Digital product. This will either be `physical` or `digital`."
+                                                    },
+                                                    "price": {
+                                                        "type": "string",
+                                                        "description": "_Only available for `simple` products._ This will be the price of the product"
+                                                    },
+                                                    "price_currency": {
+                                                        "type": "string",
+                                                        "description": "_Only available for `simple` products._ This will be the currency that the price is in"
+                                                    },
+                                                    "attributes": {
+                                                        "type": "array",
+                                                        "description": "_Only available for `variable` products._ An array of attribute details connected to the product.",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "description": "The id of the attribute that we use to identify the value."
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "description": "The name of the attribute. An example of this might be 'Size' or 'Colour'."
+                                                                },
+                                                                "option": {
+                                                                    "type": "array",
+                                                                    "description": "An array of available options.",
+                                                                    "items": {
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "variations": {
+                                                        "type": "array",
+                                                        "description": "_Only available for `variable` products._ An array of variations and prices connected to the product.",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "description": "The id of the variation that we use to identify the value. This is what is used as the `variation_id` when placing an order."
+                                                                },
+                                                                "sku": {
+                                                                    "type": "string",
+                                                                    "description": "The SKU of the variation."
+                                                                },
+                                                                "price": {
+                                                                    "type": "string",
+                                                                    "description": "The price of the variation."
+                                                                },
+                                                                "price_currency": {
+                                                                    "type": "string",
+                                                                    "description": "The currency that the price is in for the variation."
+                                                                },
+                                                                "variation_qty": {
+                                                                    "type": "string",
+                                                                    "description": "The total amount of stock available."
+                                                                },
+                                                                "variation_stock_status": {
+                                                                    "type": "string",
+                                                                    "description": "The stock status of the variation and if it is in stock or not. Values can be either `in_stock` or `out_of_stock`."
+                                                                },
+                                                                "options": {
+                                                                    "type": "array",
+                                                                    "description": "An array of the attribute combination used for this variation.",
+                                                                    "items": {
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "track_inventory": {
+                                                        "type": "string",
+                                                        "description": "Will either be `Y` or `N` on if we track the inventory for this product"
+                                                    },
+                                                    "stock_status": {
+                                                        "type": "string",
+                                                        "description": "The stock status of the product and if it is in stock or not. Values can be either `in_stock` or `out_of_stock`"
+                                                    },
+                                                    "stock_qty": {
+                                                        "type": "string",
+                                                        "description": "The total amount of stock available"
+                                                    },
+                                                    "featured_image": {
+                                                        "type": "string",
+                                                        "description": "A full URL of the main product image"
+                                                    },
+                                                    "additional_images": {
+                                                        "type": "array",
+                                                        "description": "An array of URLs of the additional images for the product. This might be empty depending on the product.",
+                                                        "items": {
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "product_vendor": {
+                                                        "type": "array",
+                                                        "description": "An array of vendor details.",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "description": "The name of the vendor."
+                                                                },
+                                                                "bio": {
+                                                                    "type": "string",
+                                                                    "description": "The full bio of the vendor."
+                                                                },
+                                                                "logo": {
+                                                                    "type": "string",
+                                                                    "description": "Full URL of the vendors logo."
+                                                                },
+                                                                "shipping_info": {
+                                                                    "type": "string",
+                                                                    "description": "Details of the vendors shipping info. This might be blank depending on the vendor."
+                                                                },
+                                                                "returns_info": {
+                                                                    "type": "string",
+                                                                    "description": "Details of the vendors return policy. This might be blank depending on the vendor."
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "shipping_cost": {
+                                                        "type": "string",
+                                                        "description": "The cost of shipping this item"
+                                                    },
+                                                    "shipping_details": {
+                                                        "type": "array",
+                                                        "description": "An array of shipping details.",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "weight": {
+                                                                    "type": "string",
+                                                                    "description": "The weight of the package in kg."
+                                                                },
+                                                                "length": {
+                                                                    "type": "string",
+                                                                    "description": "The length of the package in cm."
+                                                                },
+                                                                "width": {
+                                                                    "type": "string",
+                                                                    "description": "The width of the package in cm."
+                                                                },
+                                                                "height": {
+                                                                    "type": "string",
+                                                                    "description": "The height of the package in cm."
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "total_products": 5902,
+                                    "total_products_in_query": 200,
+                                    "current_page": 1,
+                                    "total_pages": 30,
+                                    "products": [
+                                        {
+                                            "product_id": 1,
+                                            "product_sku": "",
+                                            "product_name": "The Awakening Serum",
+                                            "product_description": "<strong>Awarded Gold and Editor's Choice</strong>\n<strong>2021 CLEAN + CONSCIOUS AWARDS</strong>\n\nThis all-in-one velveteen super serum, bursts to the brim with 14 of earth’s most active and legendary phyto-nutrient rich botanicals, C02 plant extracts and powerful essential oils. Strategically formulated to target the signs of aging, replenish hydration, boost elasticity and provide the ultimate array of critical nutrients. This multi-correctional elixir infuses skin with protective antioxidants, vital vitamins including A, C, E strengthening minerals and plumping fatty acids, including Omegas to awaken skin and restore luminosity.\n\n<strong>KEY ACTIVES</strong>\n\n<strong>Prickly Pear Seed Oil</strong>\nThis extremely rare and precious liquid silk, provides just the right amount of illuminating moisture, with its incredibly high levels of Vitamin E, amino acids, antioxidants and plumping fatty acids, that assist in the protection against free radicals.\n\n<strong>Seabuckthorn Berry CO2 Extract</strong>\nOur supercharged supercritical extract delivers the richest known plant source of beta-carotene (pro-vitamin A), together with an astonishing array of Vitamins C and E, caratenoids, flavanoids, and amino acids. Its Perfect pitch ratios of Omegas, including the rare and highly saught-after omega 7, have earned this revitalising plant its legendary status as a true skin superhero. Its warm orange hue imparts skin with a radiant golden glow.\n\n<strong>Argan Oil</strong>\nFreshly pressed and hand turned on a stone wheel by a women’s co-operative in Morocco. Often referred to as “liquid gold” , argan is famed for its remarkably rich levels of Vitamin E, an antioxidant that neutralizes free radicals. It is non-comodogenic, making it ideal for all skin types, to hydrate and correct problematic complexions.\n\n<strong>Sandalwood Nut CO2 Extract</strong>\nAn ancient emollient used by indigenous aboriginals. It quenches even the thirstiest of skin, with its highly prized levels of triple bond Ximenynic acid, one of the rarest fatty acids found in the plant kingdom, serving as one of nature’s most powerful protectors. Its velveteen texture provides a luminous infusion of moisture, as it soothes, softens and reduces the appearance of redness.\n\n<strong>Rosehip CO2 Extract</strong>\nRightly earned its reputation as a natural source of trans-retinoic acid (Vitamin A) acclaimed for its ability to reduce the appearance of lines and wrinkles. Our advanced supercritical extract delivers a more potent form of this supremely revered botannical, to awaken tired, dull and dehydrated skin.\n\n<hr />\n\n<strong>PRODUCT BENEFITS</strong>\n<div>\n<ul>\n \t<li>Delivers an intensive infusion of moisture, to enhance elasticity and reduce the appearance of wrinkles.</li>\n \t<li>Natural forms of Retinol support the signs of aging</li>\n \t<li>Ximenynic acid protects, soothes and reduces the appearance of redness</li>\n \t<li>Protective antioxidants, critical vitamins, strengthening minerals and plumping fatty acids deliver the ultimate array of beautifying nutrients necessary for optimal skin health.</li>\n \t<li>A potent and strategic blend of powerful essential oils target specific skin concerns to correct, protect, soften skin texture and deeply quench thirsty skin for a visible glow.</li>\n</ul>\n</div>\n<div></div>\n<div>\n\nIt begins with the liquid silk of Prickly Pear, providing just the right amount of illuminating moisture. Seabuckthorn Berry bursts with an astonishing array of phytonutrients. Packed with pro-vitamin A, C &amp; E, caratenoids, and the entire spectrum of plumping fatty acids, has earned this super fruit its legendary status. The liquid gold of Argan has multi-correctional properties, due to its non-comodogenic nature and highly prized levels of Vitamin E to neutralize free radicals. Sandalwood Nut quenches even the thirstiest skin, while soothing and reducing the appearance of redness, with its coveted levels of ximenynic acid, one of the rarest fatty acids found in the plant kingdom, making it one of nature’s most powerful protectors. Rounding off with Rosehip, a natural form of retinol, to reduce the appearance of lines and wrinkles, resulting in the ultimate all-in-one elixir to restore your natural radiance.\n\nNaturally scented with a strategic blend of powerful essential oils, to target specific skin concerns, including highly coveted Corsican Immortelle to avenge the signs of aging. Bulgarian Rose Otto, requiring up to 60 roses for just one drop, softens and refines. Wise gifts of Frankincense and Myrrh anoint to deeply nourish and enhance elasticity. Blue Tansy soothes, Turmeric calms, Carrot Seed renews, before adding the icing with Harmonising Jasmine to maintain moisture, cocoon your senses and restore your spirit.\n\n</div>\n<div></div>\n<div><strong>MOISTURISING RITUAL</strong></div>\nMorning and night after cleansing, warm 5-6 drops between the palms of your hands to activate. Take a moment to deeply inhale the aroma of plant essences, allowing them to weave their magic into your being. Gently massage from the centre, in upward, circular motions over the entire face, neck and décolletage, pushing and pressing into eye area, to promote circulation. Finish by tapping lightly with the tips of your fingers over the face and around the eye area to assist with lymphatic drainage.\n\nAffirm that your individual form of beauty, like nature, has a place and purpose in the grand tapestry of life. For everyone is beautiful when they are truly themselves.\n\n<hr />\n\n<strong>INGREDIENTS</strong>\n\n*Opuntia ficus indica (Prickly Pear) Seed Oil *Argania spinosa (Argan) Kernel Oil ***Santalum spicatum (Sandalwood Nut) C02 Extract *Hippophae rha\n\nmnoides (Seabuckthorn Berry) C02 Extract *Rosa canina (Rosehip) C02 Extract *Jasminum grandiflorum (Jasmine) Extract **Helichrysum italicum (Immortelle) Essential Oil *Rosa damascena (Rose Otto) Essential Oil **Santalum spicatum (Sandalwood) Essential Oil **Commiphora myrrha (Myrrh) Essential Oil *Curcuma longa (Turmeric) Essential Oil *Daucus carota (Carrot Seed) Essential Oil *Cymbopogon martini (Palmarosa) Essential Oil **Boswellia carterii (Frankincense) Essential Oil\n<strong>*Certified Organic</strong>\n<strong>**Wildcrafted</strong>\n<strong>***Organically Grown</strong>",
+                                            "product_short_description": "Multi-correctional all-in-one Super Serum",
+                                            "product_type": "simple",
+                                            "digital_physical": "physical",
+                                            "price": "120.00",
+                                            "price_currency": "AUD",
+                                            "track_inventory": "Y",
+                                            "stock_status": "in_stock",
+                                            "stock_qty": "36",
+                                            "featured_image": "https://elliephant.com/uploads/product_images/vendor_183/1693472530-466-the-awakening-serum.jpeg",
+                                            "additional_images": [
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472529-389-the-awakening-serum.jpeg",
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472529-102-the-awakening-serum.jpeg",
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472530-107-the-awakening-serum.jpeg"
+                                            ],
+                                            "product_vendor": {
+                                                "name": "Thalia",
+                                                "bio": "<p>I am a true beauty practitioner, philosopher, writer, mother, wife and pleasure enthusiast.</p>\r\n<p>My journey into skincare was born from a desire to heal my own troubled skin. Eczema, acne, and psoriasis all played a role in my own development. With the wisdom of retrospect, I can now see the blessings that at first were received as a curse. My sensitive and chemically reactive composition became a catalyst for change, in the way I treated my beloved skin.</p>\r\n<p>One morning in angst, after exhausting all cosmeceutical avenues, I emptied my entire bathroom cabinet onto the floor. As I sat there staring down at a sea of empty promises, filled with harmful and incomprehensible ingredient lists disguised as &lsquo;luxury&rsquo; I knew there had to be better way&hellip;</p>\r\n<p>It was time to go back to the beginning &ndash; to unravel the mystery of our delicate and precious skin, created to protect, envelop and embody our souls. My quest had begun for skincare rooted in real results without compromising the Earth or our internal health.</p>\r\n<p>Unable to find products that truly embodied what I believe our precious skin deserves &ndash; active, powerful and truly natural skincare, free from synthetic ingredients and loaded with all the beautifying nutrients our skin needs to thrive &ndash; it was here that Thalia was born.</p>\r\n<p>My intention was to create a small yet incredibly potent range of skincare products, that can only be defined as the very epitome of all things divine, as if created by mother nature herself. Skincare of unrivalled quality, showcasing nature&rsquo;s most precious and powerful skin healers and finest antioxidant-rich botanicals.</p>\r\n<p>My formulations are delivered to you as nature intended &ndash; fresh, raw, unprocessed and active. They are made with love, absolute integrity, and a steadfast respect for those of us who truly value self-nurturing and enhancing our natural beauty. There are no preservatives, no watered-down versions, thickeners, emulsifiers, and absolutely no compromises. This is my promise to you.</p>\r\n<p>Beauty IS an innate and natural desire.</p>\r\n<p>Our skin does not operate in isolation to the rest of our being. It is no coincidence that when we feel terrible, the first place we see it is on the face because the health of our body is reflected through our skin. What we put on and into our bodies all plays a vital role in our health, but more importantly, it affects how beautiful we&nbsp;<strong>feel</strong>.</p>",
+                                                "logo": "https://elliephant.com/uploads/vendor_images/183/1693442707-480-vendor_logo-thalia.png",
+                                                "shipping_info": "<p>All Australian orders are sent via Australia Post. We advise a 2-4 day delivery window, as sometimes there can be unexpected delays beyond our control. Orders will be processed and dispatched within 24 hours from the purchase time. All orders received on any given day, will be processed on the following business day.</p>\r\n<p>All International orders are sent via Australia Post International Standard. We advise a 6+ business day delivery window, as sometimes there can be delays beyond our control. International orders will also be processed and dispatched within 24 hours from the purchase time. All orders received on any given day are processed on the following business day.</p>",
+                                                "returns_info": "<p>We only accept faulty or damaged products as returns. Our policy lasts 14 days. If 14 days have gone by since your purchase, or more than 7 days since your delivery, unfortunately we can&rsquo;t offer you a credit or exchange.</p>"
+                                            },
+                                            "shipping_cost": 11,
+                                            "shipping_details": {
+                                                "weight": "0.00",
+                                                "length": "000000.00",
+                                                "width": "0.00",
+                                                "height": "0.00"
+                                            },
+                                            "available_location": [
+                                                "Australia"
+                                            ]
+                                        },
+                                        {
+                                            "product_id": 2,
+                                            "product_sku": "",
+                                            "product_name": "The Cleansing Truth",
+                                            "product_description": "<strong>Awarded Gold </strong>\n<strong>2021 CLEAN + CONSCIOUS AWARDS</strong>\n\nThe scents of Egyptian neroli blossoms, sweet Italian oranges, high altitude french lavender and Roses over Geranium, cocoon your senses with this multi-tasking formulation, where lavish antioxidant-rich carrier oils unite with potent essential oils to effortlessly dissolve makeup, dirt and debris. The result reveals a complexion that is clean, replenished and petal soft.\n\n&nbsp;\n\n<strong>KEY ACTIVES</strong>\n\n<strong>Argan Oil</strong>\nFreshly pressed and hand turned on a stone wheel by the Berber women’s co-operative in Morocco. Often referred to as “liquid gold” , argan is famed for its remarkably rich levels of Vitamin E, an antioxidant that neutralizes free radicals. It is non-comodogenic, making it ideal for all skin types, to hydrate, protect and correct problematic complexions.\n\n<strong>Tamanu Oil</strong>\nWith roots that spread throughout Polynesia, the South Pacific and South East Asia, this ancient skin care secret offers up a supremely rich and silky nectar that delivers a deep and incredible infusion of moisture. This highly prized oil has been used to address all manner of skin conditions, due to its unique composition of rich and plumping fatty acids, high levels of lipids, antioxidants and critical vitamins. Its multi-correctional properties have the ability reduce the appearance of redness, fine lines, scars, wounds and acne.\n\n<strong>Camellia Seed Oil</strong>\nAlso Known as the ‘Rose of Winter’ this has been a time-tested favourite of Japanese Geishas for centuries. It penetrates deeply with its high levels of Squalene, known to replenish dry skin and support natural emollients that guard against the appearance of aging. It delivers Vitamins A, B, C &amp; E, minerals &amp; Omega 6 and 9 essential fatty acids, to plump and promote elasticity.\n\n<hr />\n\n<strong>PRODUCT BENEFITS</strong>\n<ul>\n \t<li>Dissolves makeup, dirt and debris, all without stripping skin of its precious lipid barrier, essential to the protection of our skin.</li>\n \t<li>The intoxicating scents of wild sweet oranges, neroli blossoms and high altitude french lavender ground, cocoon and connect us to nature, while providing powerful antioxidants to balance, support and restore problematic skin.</li>\n \t<li>Multi-tasking formulation to effectively melt away impurities and maintain moisture, while simultaneously steaming and exfoliating, when removed with a warm washcloth.</li>\n \t<li>Nutrient-rich plant oils deliver critical nutrients needed to nourish and protect, resulting in skin that is hydrated, petal soft and thoroughly fed.</li>\n \t<li>This oil cleansing ritual is a gentle yet remarkably effective method of cleansing that is based on the Simple but profound chemistry equation – oil dissolves oil.</li>\n</ul>\nJust like our gut, our precious skin also plays host to an entire ecosystem of bacteria, that play an integral role in its protection. Most cleansers strip our skin of its delicate outer acid mantle and hydrolipid layer, triggering skin imbalances.\n\nOur two-in-one oil cleanser and makeup remover is crafted differently. It dissolves impurities that can build up, harden and block pores, while ensuring our precious lipid barrier remains intact.\n\nThese unwanted oils are then replenished with our formulation of antioxidant-rich plant oils, including the liquid gold of Argan to nourish and neutralize free radicals, the supremely rich nectar of Tamanu, delivers a deep infusion of moisture, to soothe and restore troubled skin. Camellia Seed, worshipped by Japanese Geishas for thousands of years, penetrates deeply with its highly prized levels of squalene, to nourish dry skin and support natural emollients, that melts away impurities, while replenishing moisture.\n\nEnhanced with the natural scents of freshly picked Neroli blossoms, wild sweet oranges, high altitude french lavender and Roses over Geranium to deliver a potent and strategic blend of essential oils to target healing and restore balance, whilst feeding the skin a sensuous feast of protective antioxidants and replenishing phytonutrients.\n\n<hr />\n\n<strong>CLEANSING RITUAL</strong>\n\nWarm 4-6 drops between palms. Press into dry skin, then with wet fingers, gently massage to stimulate circulation and dissolve impurities. Cocoon a comfortably hot, steamy washcloth over face until it cools. Take a moment to inhale the aromatic plant essences, by breathing their magic into your being. Rinse cloth with water and hold, rinse and repeat until skin feels cleansed, petal soft and nourished.\n\n<strong>We cleanse to purify our body, mind and soul, bringing us back once again to the centre of our truth.</strong>\n\n<hr />\n\n<strong>INGREDIENTS</strong>\n\n*Argania spinosa (Argan) Kernel Oil, *Calophyllum inophyllum (Tamanu) Oil, *Camellia oleifera (Camellia) Oil, *Lavandula angustifolia (Lavender) Essential Oil *Citrus sinensis (Sweet Orange) Essential Oil *Pelargonium graveolens (Rose Geranium) Essential Oil *Citrus aurantium var. amara (Neroli) Essential Oil *Cymbopogon martini (Palmarosa) Essential Oil\n<strong>*Certified Organic</strong>",
+                                            "product_short_description": "Clarifying &amp; Antioxidant Facial Cleansing Oil",
+                                            "product_type": "simple",
+                                            "digital_physical": "physical",
+                                            "price": "85.00",
+                                            "price_currency": "AUD",
+                                            "track_inventory": "Y",
+                                            "stock_status": "in_stock",
+                                            "stock_qty": "49",
+                                            "featured_image": "https://elliephant.com/uploads/product_images/vendor_183/1693472530-246-the-cleansing-truth.jpeg",
+                                            "additional_images": [
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472530-39-the-cleansing-truth.jpeg",
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472530-340-the-cleansing-truth.jpeg",
+                                                "https://elliephant.com/uploads/product_images/vendor_183/1693472530-365-the-cleansing-truth.jpeg"
+                                            ],
+                                            "product_vendor": {
+                                                "name": "Thalia",
+                                                "bio": "<p>I am a true beauty practitioner, philosopher, writer, mother, wife and pleasure enthusiast.</p>\r\n<p>My journey into skincare was born from a desire to heal my own troubled skin. Eczema, acne, and psoriasis all played a role in my own development. With the wisdom of retrospect, I can now see the blessings that at first were received as a curse. My sensitive and chemically reactive composition became a catalyst for change, in the way I treated my beloved skin.</p>\r\n<p>One morning in angst, after exhausting all cosmeceutical avenues, I emptied my entire bathroom cabinet onto the floor. As I sat there staring down at a sea of empty promises, filled with harmful and incomprehensible ingredient lists disguised as &lsquo;luxury&rsquo; I knew there had to be better way&hellip;</p>\r\n<p>It was time to go back to the beginning &ndash; to unravel the mystery of our delicate and precious skin, created to protect, envelop and embody our souls. My quest had begun for skincare rooted in real results without compromising the Earth or our internal health.</p>\r\n<p>Unable to find products that truly embodied what I believe our precious skin deserves &ndash; active, powerful and truly natural skincare, free from synthetic ingredients and loaded with all the beautifying nutrients our skin needs to thrive &ndash; it was here that Thalia was born.</p>\r\n<p>My intention was to create a small yet incredibly potent range of skincare products, that can only be defined as the very epitome of all things divine, as if created by mother nature herself. Skincare of unrivalled quality, showcasing nature&rsquo;s most precious and powerful skin healers and finest antioxidant-rich botanicals.</p>\r\n<p>My formulations are delivered to you as nature intended &ndash; fresh, raw, unprocessed and active. They are made with love, absolute integrity, and a steadfast respect for those of us who truly value self-nurturing and enhancing our natural beauty. There are no preservatives, no watered-down versions, thickeners, emulsifiers, and absolutely no compromises. This is my promise to you.</p>\r\n<p>Beauty IS an innate and natural desire.</p>\r\n<p>Our skin does not operate in isolation to the rest of our being. It is no coincidence that when we feel terrible, the first place we see it is on the face because the health of our body is reflected through our skin. What we put on and into our bodies all plays a vital role in our health, but more importantly, it affects how beautiful we&nbsp;<strong>feel</strong>.</p>",
+                                                "logo": "https://elliephant.com/uploads/vendor_images/183/1693442707-480-vendor_logo-thalia.png",
+                                                "shipping_info": "<p>All Australian orders are sent via Australia Post. We advise a 2-4 day delivery window, as sometimes there can be unexpected delays beyond our control. Orders will be processed and dispatched within 24 hours from the purchase time. All orders received on any given day, will be processed on the following business day.</p>\r\n<p>All International orders are sent via Australia Post International Standard. We advise a 6+ business day delivery window, as sometimes there can be delays beyond our control. International orders will also be processed and dispatched within 24 hours from the purchase time. All orders received on any given day are processed on the following business day.</p>",
+                                                "returns_info": "<p>We only accept faulty or damaged products as returns. Our policy lasts 14 days. If 14 days have gone by since your purchase, or more than 7 days since your delivery, unfortunately we can&rsquo;t offer you a credit or exchange.</p>"
+                                            },
+                                            "shipping_cost": 11,
+                                            "shipping_details": {
+                                                "weight": "0.00",
+                                                "length": "000000.00",
+                                                "width": "0.00",
+                                                "height": "0.00"
+                                            },
+                                            "available_location": [
+                                                "Australia"
+                                            ]
+                                        },
+                                        {
+                                            "product_id": 229,
+                                            "product_sku": "5619221",
+                                            "product_name": "Garden Tales Daisy",
+                                            "product_description": "Welcome spring into your home with this fresh and stylish daisy. Inspired by the trend for single flower vases. Traditionally thought to symbolize innocence, loyalty, purity, and simplicity, the daisy is crafted in clear crystal with a shimmer effect and a yellow crystal centre and features 401 facets.\n\nThe soft lines of its petals and warm tones of the brushed champagne-gold tone plated metal stem reflect a fresh and modern pared-back style. A lovely gift, it can be elegantly presented in either the small or large Garden Tales Decorative Vase.\n\nFeatures:\n<ul>\n \t<li>Designer: Wolfgang Bamminger</li>\n \t<li>Length: 16cm</li>\n \t<li>Width: 2.8cm</li>\n \t<li>Collection: Garden Tales</li>\n \t<li>Decoration object. Not a toy. Not suitable for children under 15.</li>\n \t<li>Figurines &amp; Decorative Objects: Polish your product carefully with a soft, lint free cloth or clean it by hand with lukewarm water. Do not soak your crystal products in water. Dry with a soft, lint free cloth to maximise brilliance. Avoid contact with harsh, abrasive materials and glass/window cleaners.</li>\n \t<li>When handling your crystal, it is advisable to wear cotton gloves to avoid leaving fingerprints.</li>\n</ul>",
+                                            "product_short_description": "",
+                                            "product_type": "simple",
+                                            "digital_physical": "physical",
+                                            "price": "175.00",
+                                            "price_currency": "AUD",
+                                            "track_inventory": "Y",
+                                            "stock_status": "out_of_stock",
+                                            "stock_qty": "",
+                                            "featured_image": "https://elliephant.com/uploads/product_images/vendor_180/1693472607-283-garden-tales-daisy.jpg",
+                                            "additional_images": [
+                                                "https://elliephant.com/uploads/product_images/vendor_180/1693472607-239-garden-tales-daisy.jpg",
+                                                "https://elliephant.com/uploads/product_images/vendor_180/1693472607-455-garden-tales-daisy.jpg"
+                                            ],
+                                            "product_vendor": {
+                                                "name": "Swarovski",
+                                                "bio": "<p>Since 1895, founder Daniel Swarovski&rsquo;s mastery of crystal cutting has defined the company. His enduring passion for innovation and design has made it the world&rsquo;s premier Jewellery and accessory brand. Today, the family carries on the tradition of delivering extraordinary everyday style to women around the world.</p>",
+                                                "logo": "https://elliephant.com/uploads/vendor_images/180/1693441598-119-vendor_logo-swarovski.png",
+                                                "shipping_info": null,
+                                                "returns_info": null
+                                            },
+                                            "shipping_cost": 11,
+                                            "shipping_details": {
+                                                "weight": "0.00",
+                                                "length": "000000.00",
+                                                "width": "0.00",
+                                                "height": "0.00"
+                                            },
+                                            "available_location": [
+                                                "Australia"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "get": {
+                "summary": "Retrieve a single product",
+                "operationId": "getProduct",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "product_id": {
+                                            "type": "integer",
+                                            "description": "The product id used to identify the product on our site."
+                                        },
+                                        "product_sku": {
+                                            "type": "string",
+                                            "description": "The SKU of the product."
+                                        },
+                                        "product_name": {
+                                            "type": "string",
+                                            "description": "Full name of the product."
+                                        },
+                                        "product_description": {
+                                            "type": "string",
+                                            "description": "Full description of the product."
+                                        },
+                                        "product_short_description": {
+                                            "type": "string",
+                                            "description": "The short description of the product used to store important information about the product."
+                                        },
+                                        "product_type": {
+                                            "type": "string",
+                                            "description": "Determine if the product is a simple product or variable product with variable meaning that it has variations. This will either be `simple` or `variable`"
+                                        },
+                                        "digital_physical": {
+                                            "type": "string",
+                                            "description": "Determine if the product is a Physical product or Digital product. This will either be `physical` or `digital`."
+                                        },
+                                        "price": {
+                                            "type": "string",
+                                            "description": "_Only available for `simple` products._ This will be the price of the product"
+                                        },
+                                        "price_currency": {
+                                            "type": "string",
+                                            "description": "_Only available for `simple` products._ This will be the currency that the price is in"
+                                        },
+                                        "attributes": {
+                                            "type": "array",
+                                            "description": "_Only available for `variable` products._ An array of attribute details connected to the product.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "description": "The id of the attribute that we use to identify the value."
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "The name of the attribute. An example of this might be 'Size' or 'Colour'."
+                                                    },
+                                                    "option": {
+                                                        "type": "array",
+                                                        "description": "An array of available options.",
+                                                        "items": {
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "variations": {
+                                            "type": "array",
+                                            "description": "_Only available for `variable` products._ An array of variations and prices connected to the product.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "description": "The id of the variation that we use to identify the value. This is what is used as the `variation_id` when placing an order."
+                                                    },
+                                                    "sku": {
+                                                        "type": "string",
+                                                        "description": "The SKU of the variation."
+                                                    },
+                                                    "price": {
+                                                        "type": "string",
+                                                        "description": "The price of the variation."
+                                                    },
+                                                    "price_currency": {
+                                                        "type": "string",
+                                                        "description": "The currency that the price is in for the variation."
+                                                    },
+                                                    "variation_qty": {
+                                                        "type": "string",
+                                                        "description": "The total amount of stock available."
+                                                    },
+                                                    "variation_stock_status": {
+                                                        "type": "string",
+                                                        "description": "The stock status of the variation and if it is in stock or not. Values can be either `in_stock` or `out_of_stock`."
+                                                    },
+                                                    "options": {
+                                                        "type": "array",
+                                                        "description": "An array of the attribute combination used for this variation.",
+                                                        "items": {
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "track_inventory": {
+                                            "type": "string",
+                                            "description": "Will either be `Y` or `N` on if we track the inventory for this product"
+                                        },
+                                        "stock_status": {
+                                            "type": "string",
+                                            "description": "The stock status of the product and if it is in stock or not. Values can be either `in_stock` or `out_of_stock`"
+                                        },
+                                        "stock_qty": {
+                                            "type": "string",
+                                            "description": "The total amount of stock available"
+                                        },
+                                        "featured_image": {
+                                            "type": "string",
+                                            "description": "A full URL of the main product image"
+                                        },
+                                        "additional_images": {
+                                            "type": "array",
+                                            "description": "An array of URLs of the additional images for the product. This might be empty depending on the product.",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "product_vendor": {
+                                            "type": "array",
+                                            "description": "An array of vendor details.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "The name of the vendor."
+                                                    },
+                                                    "bio": {
+                                                        "type": "string",
+                                                        "description": "The full bio of the vendor."
+                                                    },
+                                                    "logo": {
+                                                        "type": "string",
+                                                        "description": "Full URL of the vendors logo."
+                                                    },
+                                                    "shipping_info": {
+                                                        "type": "string",
+                                                        "description": "Details of the vendors shipping info. This might be blank depending on the vendor."
+                                                    },
+                                                    "returns_info": {
+                                                        "type": "string",
+                                                        "description": "Details of the vendors return policy. This might be blank depending on the vendor."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "shipping_cost": {
+                                            "type": "string",
+                                            "description": "The cost of shipping this item"
+                                        },
+                                        "shipping_details": {
+                                            "type": "array",
+                                            "description": "An array of shipping details.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "weight": {
+                                                        "type": "string",
+                                                        "description": "The weight of the package in kg."
+                                                    },
+                                                    "length": {
+                                                        "type": "string",
+                                                        "description": "The length of the package in cm."
+                                                    },
+                                                    "width": {
+                                                        "type": "string",
+                                                        "description": "The width of the package in cm."
+                                                    },
+                                                    "height": {
+                                                        "type": "string",
+                                                        "description": "The height of the package in cm."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "product_id": 1,
+                                    "product_sku": "",
+                                    "product_name": "The Awakening Serum",
+                                    "product_description": "<strong>Awarded Gold and Editor's Choice</strong>\n<strong>2021 CLEAN + CONSCIOUS AWARDS</strong>\n\nThis all-in-one velveteen super serum, bursts to the brim with 14 of earth’s most active and legendary phyto-nutrient rich botanicals, C02 plant extracts and powerful essential oils. Strategically formulated to target the signs of aging, replenish hydration, boost elasticity and provide the ultimate array of critical nutrients. This multi-correctional elixir infuses skin with protective antioxidants, vital vitamins including A, C, E strengthening minerals and plumping fatty acids, including Omegas to awaken skin and restore luminosity.\n\n<strong>KEY ACTIVES</strong>\n\n<strong>Prickly Pear Seed Oil</strong>\nThis extremely rare and precious liquid silk, provides just the right amount of illuminating moisture, with its incredibly high levels of Vitamin E, amino acids, antioxidants and plumping fatty acids, that assist in the protection against free radicals.\n\n<strong>Seabuckthorn Berry CO2 Extract</strong>\nOur supercharged supercritical extract delivers the richest known plant source of beta-carotene (pro-vitamin A), together with an astonishing array of Vitamins C and E, caratenoids, flavanoids, and amino acids. Its Perfect pitch ratios of Omegas, including the rare and highly saught-after omega 7, have earned this revitalising plant its legendary status as a true skin superhero. Its warm orange hue imparts skin with a radiant golden glow.\n\n<strong>Argan Oil</strong>\nFreshly pressed and hand turned on a stone wheel by a women’s co-operative in Morocco. Often referred to as “liquid gold” , argan is famed for its remarkably rich levels of Vitamin E, an antioxidant that neutralizes free radicals. It is non-comodogenic, making it ideal for all skin types, to hydrate and correct problematic complexions.\n\n<strong>Sandalwood Nut CO2 Extract</strong>\nAn ancient emollient used by indigenous aboriginals. It quenches even the thirstiest of skin, with its highly prized levels of triple bond Ximenynic acid, one of the rarest fatty acids found in the plant kingdom, serving as one of nature’s most powerful protectors. Its velveteen texture provides a luminous infusion of moisture, as it soothes, softens and reduces the appearance of redness.\n\n<strong>Rosehip CO2 Extract</strong>\nRightly earned its reputation as a natural source of trans-retinoic acid (Vitamin A) acclaimed for its ability to reduce the appearance of lines and wrinkles. Our advanced supercritical extract delivers a more potent form of this supremely revered botannical, to awaken tired, dull and dehydrated skin.\n\n<hr />\n\n<strong>PRODUCT BENEFITS</strong>\n<div>\n<ul>\n \t<li>Delivers an intensive infusion of moisture, to enhance elasticity and reduce the appearance of wrinkles.</li>\n \t<li>Natural forms of Retinol support the signs of aging</li>\n \t<li>Ximenynic acid protects, soothes and reduces the appearance of redness</li>\n \t<li>Protective antioxidants, critical vitamins, strengthening minerals and plumping fatty acids deliver the ultimate array of beautifying nutrients necessary for optimal skin health.</li>\n \t<li>A potent and strategic blend of powerful essential oils target specific skin concerns to correct, protect, soften skin texture and deeply quench thirsty skin for a visible glow.</li>\n</ul>\n</div>\n<div></div>\n<div>\n\nIt begins with the liquid silk of Prickly Pear, providing just the right amount of illuminating moisture. Seabuckthorn Berry bursts with an astonishing array of phytonutrients. Packed with pro-vitamin A, C &amp; E, caratenoids, and the entire spectrum of plumping fatty acids, has earned this super fruit its legendary status. The liquid gold of Argan has multi-correctional properties, due to its non-comodogenic nature and highly prized levels of Vitamin E to neutralize free radicals. Sandalwood Nut quenches even the thirstiest skin, while soothing and reducing the appearance of redness, with its coveted levels of ximenynic acid, one of the rarest fatty acids found in the plant kingdom, making it one of nature’s most powerful protectors. Rounding off with Rosehip, a natural form of retinol, to reduce the appearance of lines and wrinkles, resulting in the ultimate all-in-one elixir to restore your natural radiance.\n\nNaturally scented with a strategic blend of powerful essential oils, to target specific skin concerns, including highly coveted Corsican Immortelle to avenge the signs of aging. Bulgarian Rose Otto, requiring up to 60 roses for just one drop, softens and refines. Wise gifts of Frankincense and Myrrh anoint to deeply nourish and enhance elasticity. Blue Tansy soothes, Turmeric calms, Carrot Seed renews, before adding the icing with Harmonising Jasmine to maintain moisture, cocoon your senses and restore your spirit.\n\n</div>\n<div></div>\n<div><strong>MOISTURISING RITUAL</strong></div>\nMorning and night after cleansing, warm 5-6 drops between the palms of your hands to activate. Take a moment to deeply inhale the aroma of plant essences, allowing them to weave their magic into your being. Gently massage from the centre, in upward, circular motions over the entire face, neck and décolletage, pushing and pressing into eye area, to promote circulation. Finish by tapping lightly with the tips of your fingers over the face and around the eye area to assist with lymphatic drainage.\n\nAffirm that your individual form of beauty, like nature, has a place and purpose in the grand tapestry of life. For everyone is beautiful when they are truly themselves.\n\n<hr />\n\n<strong>INGREDIENTS</strong>\n\n*Opuntia ficus indica (Prickly Pear) Seed Oil *Argania spinosa (Argan) Kernel Oil ***Santalum spicatum (Sandalwood Nut) C02 Extract *Hippophae rha\n\nmnoides (Seabuckthorn Berry) C02 Extract *Rosa canina (Rosehip) C02 Extract *Jasminum grandiflorum (Jasmine) Extract **Helichrysum italicum (Immortelle) Essential Oil *Rosa damascena (Rose Otto) Essential Oil **Santalum spicatum (Sandalwood) Essential Oil **Commiphora myrrha (Myrrh) Essential Oil *Curcuma longa (Turmeric) Essential Oil *Daucus carota (Carrot Seed) Essential Oil *Cymbopogon martini (Palmarosa) Essential Oil **Boswellia carterii (Frankincense) Essential Oil\n<strong>*Certified Organic</strong>\n<strong>**Wildcrafted</strong>\n<strong>***Organically Grown</strong>",
+                                    "product_short_description": "Multi-correctional all-in-one Super Serum",
+                                    "product_type": "simple",
+                                    "digital_physical": "physical",
+                                    "price": "120.00",
+                                    "price_currency": "AUD",
+                                    "track_inventory": "Y",
+                                    "stock_status": "in_stock",
+                                    "stock_qty": "36",
+                                    "featured_image": "https://api.elliephantv2.com/uploads/product_images/vendor_183/1693472530-466-the-awakening-serum.jpeg",
+                                    "additional_images": [
+                                        "https://api.elliephantv2.com/uploads/product_images/vendor_183/1693472529-389-the-awakening-serum.jpeg",
+                                        "https://api.elliephantv2.com/uploads/product_images/vendor_183/1693472529-102-the-awakening-serum.jpeg",
+                                        "https://api.elliephantv2.com/uploads/product_images/vendor_183/1693472530-107-the-awakening-serum.jpeg"
+                                    ],
+                                    "product_vendor": {
+                                        "name": "Thalia",
+                                        "bio": "<p>I am a true beauty practitioner, philosopher, writer, mother, wife and pleasure enthusiast.</p>\r\n<p>My journey into skincare was born from a desire to heal my own troubled skin. Eczema, acne, and psoriasis all played a role in my own development. With the wisdom of retrospect, I can now see the blessings that at first were received as a curse. My sensitive and chemically reactive composition became a catalyst for change, in the way I treated my beloved skin.</p>\r\n<p>One morning in angst, after exhausting all cosmeceutical avenues, I emptied my entire bathroom cabinet onto the floor. As I sat there staring down at a sea of empty promises, filled with harmful and incomprehensible ingredient lists disguised as &lsquo;luxury&rsquo; I knew there had to be better way&hellip;</p>\r\n<p>It was time to go back to the beginning &ndash; to unravel the mystery of our delicate and precious skin, created to protect, envelop and embody our souls. My quest had begun for skincare rooted in real results without compromising the Earth or our internal health.</p>\r\n<p>Unable to find products that truly embodied what I believe our precious skin deserves &ndash; active, powerful and truly natural skincare, free from synthetic ingredients and loaded with all the beautifying nutrients our skin needs to thrive &ndash; it was here that Thalia was born.</p>\r\n<p>My intention was to create a small yet incredibly potent range of skincare products, that can only be defined as the very epitome of all things divine, as if created by mother nature herself. Skincare of unrivalled quality, showcasing nature&rsquo;s most precious and powerful skin healers and finest antioxidant-rich botanicals.</p>\r\n<p>My formulations are delivered to you as nature intended &ndash; fresh, raw, unprocessed and active. They are made with love, absolute integrity, and a steadfast respect for those of us who truly value self-nurturing and enhancing our natural beauty. There are no preservatives, no watered-down versions, thickeners, emulsifiers, and absolutely no compromises. This is my promise to you.</p>\r\n<p>Beauty IS an innate and natural desire.</p>\r\n<p>Our skin does not operate in isolation to the rest of our being. It is no coincidence that when we feel terrible, the first place we see it is on the face because the health of our body is reflected through our skin. What we put on and into our bodies all plays a vital role in our health, but more importantly, it affects how beautiful we&nbsp;<strong>feel</strong>.</p>",
+                                        "logo": "https://api.elliephantv2.com/uploads/vendor_images/183/1693442707-480-vendor_logo-thalia.png",
+                                        "shipping_info": "<p>All Australian orders are sent via Australia Post. We advise a 2-4 day delivery window, as sometimes there can be unexpected delays beyond our control. Orders will be processed and dispatched within 24 hours from the purchase time. All orders received on any given day, will be processed on the following business day.</p>\r\n<p>All International orders are sent via Australia Post International Standard. We advise a 6+ business day delivery window, as sometimes there can be delays beyond our control. International orders will also be processed and dispatched within 24 hours from the purchase time. All orders received on any given day are processed on the following business day.</p>",
+                                        "returns_info": "<p>We only accept faulty or damaged products as returns. Our policy lasts 14 days. If 14 days have gone by since your purchase, or more than 7 days since your delivery, unfortunately we can&rsquo;t offer you a credit or exchange.</p>"
+                                    },
+                                    "shipping_cost": 11,
+                                    "shipping_details": {
+                                        "weight": "0.00",
+                                        "length": "000000.00",
+                                        "width": "0.00",
+                                        "height": "0.00"
+                                    },
+                                    "available_location": [
+                                        "Australia"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order": {
+            "get": {
+                "summary": "Retrieve a specific order",
+                "operationId": "getOrder",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "order_id": {
+                                            "type": "integer",
+                                            "description": "The ID of the order in our system, this is the ID used to get the order details later."
+                                        },
+                                        "order_number": {
+                                            "type": "string",
+                                            "description": "The order number that is used for reference, this will be in the format EO-00000."
+                                        },
+                                        "order_date": {
+                                            "type": "string",
+                                            "description": "The date of the order placed in the format YYYY-MM-DD HH:MM."
+                                        },
+                                        "order_status": {
+                                            "type": "string",
+                                            "description": "The status of the order. This will be either `failed`, `created`, `paid` or `cancieled`."
+                                        },
+                                        "gift_order_method": {
+                                            "type": "string",
+                                            "description": "The method that order is placed or gifted. This will be either `email`, `direct`, `link`, `api-purchase` or `api-giftlink`."
+                                        },
+                                        "link_how_many_times": {
+                                            "type": "string",
+                                            "description": "_Only sent if `gift_order_method == link`_. The number of how many times the link can be redeemed"
+                                        },
+                                        "link_url": {
+                                            "type": "string",
+                                            "description": "_Only sent if `gift_order_method == link`_. The URL used to redeem the gift."
+                                        },
+                                        "link_message": {
+                                            "type": "string",
+                                            "description": "_Only sent if `gift_order_method == link`_. The message included on the link redemption page"
+                                        },
+                                        "gift_of_choice": {
+                                            "type": "string",
+                                            "description": "An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N`"
+                                        },
+                                        "branding_selected": {
+                                            "type": "string",
+                                            "description": "The type of branding that you are want for your gift link or email. This is either `elliephant`, `company` or `custom`. `company` can only be used if your company branding as been set in your company profile. `custom` can only be set if placed on the store."
+                                        },
+                                        "branding_options": {
+                                            "type": "array",
+                                            "description": "An array containing the branding values.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "branding_logo": {
+                                                        "type": "string",
+                                                        "description": "The local URL of the main branded logo."
+                                                    },
+                                                    "branding_claim_logo": {
+                                                        "type": "string",
+                                                        "description": "The local URL of the logo that sites on the `primary_color` background."
+                                                    },
+                                                    "primary_color": {
+                                                        "type": "string",
+                                                        "description": "The HEX code of the primary background colour."
+                                                    },
+                                                    "secondary_color": {
+                                                        "type": "string",
+                                                        "description": "The HEX code of the secondary button colour."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "product_offered": {
+                                            "type": "string",
+                                            "description": "The original product offered. This will be an array containing `product_id` and `variation_id`. This connects to the product id and variation id retreved in the [GET/api/product/:id](/api-reference/endpoint/products) method."
+                                        },
+                                        "order_totals": {
+                                            "type": "array",
+                                            "description": "An array containing the order totals.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "description": "The currency you payed in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
+                                                    },
+                                                    "product_price": {
+                                                        "type": "string",
+                                                        "description": "The price of the product at time of purchase."
+                                                    },
+                                                    "qty": {
+                                                        "type": "string",
+                                                        "description": "Total amount of items purchased."
+                                                    },
+                                                    "subtotal": {
+                                                        "type": "string",
+                                                        "description": "The subtotal of the order (calculated by the equation `product_price` x `qty`)."
+                                                    },
+                                                    "shipping_cost": {
+                                                        "type": "string",
+                                                        "description": "The cost of the shipping at time of purchase."
+                                                    },
+                                                    "order_fee": {
+                                                        "type": "string",
+                                                        "description": "The cost of the service fee at the tiem of purchase."
+                                                    },
+                                                    "order_total": {
+                                                        "type": "string",
+                                                        "description": "The total paid for the order (calculated by the equation `subtotal` + `shipping_cost` + `order_fee`)."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "email_template": {
+                                            "type": "string",
+                                            "description": "The template used for the emails sent. This could be either `celebration`, `generic`, `sympathy` or `christmas`. This can only be set if placed on the store."
+                                        },                                        
+                                        "recipients": {
+                                            "type": "array",
+                                            "description": "An array containing the recipient details.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "suborder_id": {
+                                                        "type": "integer",
+                                                        "description": "The id of the order used for identification in our system."
+                                                    },
+                                                    "suborder_number": {
+                                                        "type": "string",
+                                                        "description": "The order number that is used for reference, this will be in the format EO-00000-00."
+                                                    },
+                                                    "recipient_details": {
+                                                        "type": "array",
+                                                        "description": "An array of information about the recipient.",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "description": "The name of your recipient."
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "description": "The full email address of your recipient."
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string",
+                                                                    "description": "The phone number of your recipient."
+                                                                },
+                                                                "delivery_address": {
+                                                                    "type": "array",
+                                                                    "description": "An array containing the address of the recipient.",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "address_line_1": {
+                                                                                "type": "string",
+                                                                                "description": "Line 1 of the address field."
+                                                                            },
+                                                                            "address_line_2": {
+                                                                                "type": "string",
+                                                                                "description": "Line 2 of the address field."
+                                                                            },
+                                                                            "suburb": {
+                                                                                "type": "string",
+                                                                                "description": "The suburb or town of the address."
+                                                                            },
+                                                                            "state": {
+                                                                                "type": "string",
+                                                                                "description": "The state or providence of the address."
+                                                                            },
+                                                                            "postcode_zipcode": {
+                                                                                "type": "string",
+                                                                                "description": "The postcode or zipcode of the address."
+                                                                            },
+                                                                            "country": {
+                                                                                "type": "string",
+                                                                                "description": "The country of the address as the full country name eg Australia, England, Singapore etc."
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "email_message": {
+                                                                    "type": "string",
+                                                                    "description": "The message that gets attached to your gifting email and page."
+                                                                },
+                                                                "delivery_notes": {
+                                                                    "type": "string",
+                                                                    "description": "Any notes assigned to the delivery."
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "redemption_status": {
+                                                        "type": "string",
+                                                        "description": "Current redemption status which will either be `NULL` or an array containing the `status` and `date` in the format YYYY-MM-DD HH:MM."
+                                                    },
+                                                    "product_selected": {
+                                                        "type": "string",
+                                                        "description": "The final product selected. This will be an array containing `product_id` and `variation_id`. This connects to the product id and variation id retreved in the [GET/api/product/:id](/api-reference/endpoint/products) method."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "order_id": "133",
+                                    "order_number": "EO-00133",
+                                    "order_date": "2024-05-08 11:50am",
+                                    "order_status": "paid",
+                                    "gift_order_method": "email",
+                                    "gift_of_choice": "N",
+                                    "branding_selected": "elliephant",
+                                    "branding_options": {
+                                        "branding_logo": "/assets/logos/email-logo.png",
+                                        "branding_claim_logo": "/assets/logos/primary-logo-white.svg",
+                                        "primary_color": "#FF0054",
+                                        "secondary_color": "#9E0059"
+                                    },
+                                    "product_offered": {
+                                        "product_id": "5737",
+                                        "variation_id": null
+                                    },
+                                    "order_totals": {
+                                        "currency": "USD",
+                                        "product_price": "12.77",
+                                        "qty": "3",
+                                        "subtotal": "38.30",
+                                        "shipping_cost": "19.01",
+                                        "order_fee": "2.29",
+                                        "order_total": "59.60"
+                                    },
+                                    "email_template": "celebration",
+                                    "recipients": [
+                                        {
+                                            "suborder_id": 327,
+                                            "suborder_number": "EO-00133-1",
+                                            "recipient_details": {
+                                                "name": "Johnny Tester",
+                                                "email": "j.tester@gmail.com",
+                                                "email_message": "Thanks for the hard work",
+                                                "delivery_address": {
+                                                    "address_line_1": null,
+                                                    "address_line_2": null,
+                                                    "suburb": null,
+                                                    "state": null,
+                                                    "postcode_zipcode": null,
+                                                    "country": null
+                                                },
+                                                "phone_number": "NA",
+                                                "delivery_notes": null
+                                            },
+                                            "redemption_status": null,
+                                            "product_selected": {
+                                                "product_id": "5737",
+                                                "variation_id": null
+                                            }
+                                        },
+                                        {
+                                            "suborder_id": 328,
+                                            "suborder_number": "EO-00133-2",
+                                            "recipient_details": {
+                                                "name": "Joshua Smith",
+                                                "email": "j.smith@elliephant.com",
+                                                "email_message": "Thanks for the hard work",
+                                                "delivery_address": {
+                                                    "address_line_1": "123 Example Street",
+                                                    "address_line_2": null,
+                                                    "suburb": "Example Town",
+                                                    "state": "Victoria",
+                                                    "postcode_zipcode": "9876",
+                                                    "country": "Australia"
+                                                },
+                                                "phone_number": "0412345678",
+                                                "delivery_notes": null
+                                            },
+                                            "redemption_status": null,
+                                            "product_selected": {
+                                                "product_id": "5737",
+                                                "variation_id": null
+                                            }
+                                        },
+                                        {
+                                            "suborder_id": 329,
+                                            "suborder_number": "EO-00133-3",
+                                            "recipient_details": {
+                                                "name": "Jane Doe",
+                                                "email": "j.doe@elliephant.com",
+                                                "email_message": "Thanks for the hard work",
+                                                "delivery_address": {
+                                                    "address_line_1": "123 Sample Street",
+                                                    "address_line_2": null,
+                                                    "suburb": "Sample Town",
+                                                    "state": "Victoria",
+                                                    "postcode_zipcode": "1234",
+                                                    "country": "Australia"
+                                                },
+                                                "phone_number": "NA",
+                                                "delivery_notes": null
+                                            },
+                                            "redemption_status": null,
+                                            "product_selected": {
+                                                "product_id": "5737",
+                                                "variation_id": null
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Place an order",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "description": "This the product id of the product that you want to gift."
+                                    },
+                                    "variation_id": {
+                                        "type": "integer",
+                                        "description": "The variation id of the product you would like to gift. Only needed if the product is a variable product."
+                                    },
+                                    "currency": {
+                                        "type": "integer",
+                                        "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
+                                    },
+                                    "base_location": {
+                                        "type": "integer",
+                                        "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
+                                    },
+                                    "recipient_details": {
+                                        "type": "array",
+                                        "description": "An array of information about the recipient.",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "description": "The first name of your recipient."
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "description": "The last name of your recipient."
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "description": "The full email address of your recipient."
+                                                },
+                                                "phone_number": {
+                                                    "type": "string",
+                                                    "description": "The phone number of your recipient."
+                                                },
+                                                "delivery_address": {
+                                                    "type": "object",
+                                                    "description": "An array containing the address of the recipient.",
+                                                    "properties": {
+                                                        "address_line_1": {
+                                                            "type": "string",
+                                                            "description": "Line 1 of the address field."
+                                                        },
+                                                        "address_line_2": {
+                                                            "type": "string",
+                                                            "description": "Line 2 of the address field."
+                                                        },
+                                                        "suburb": {
+                                                            "type": "string",
+                                                            "description": "The suburb or town of the address."
+                                                        },
+                                                        "state": {
+                                                            "type": "string",
+                                                            "description": "The state or providence of the address."
+                                                        },
+                                                        "postcode_zipcode": {
+                                                            "type": "string",
+                                                            "description": "The postcode or zipcode of the address."
+                                                        },
+                                                        "country": {
+                                                            "type": "string",
+                                                            "description": "The country of the address as the full country name eg Australia, England, Singapore etc."
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "description": "Detail on if the order was placed successfully. Will either be `success` or `error`"
+                                        },
+                                        "order_data": {
+                                            "type": "array",
+                                            "description": "An array containing the order values.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "order_id": {
+                                                        "type": "integer",
+                                                        "description": "The ID of the order in our system, this is the ID used to get the order details later."
+                                                    },
+                                                    "order_number": {
+                                                        "type": "string",
+                                                        "description": "The order number that is used for reference, this will be in the format EO-00000."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "order_totals": {
+                                            "type": "array",
+                                            "description": "An array containing the order totals.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "description": "The currency you payed in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
+                                                    },
+                                                    "product_price": {
+                                                        "type": "string",
+                                                        "description": "The price of the product at time of purchase."
+                                                    },
+                                                    "qty": {
+                                                        "type": "string",
+                                                        "description": "Total amount of items purchased."
+                                                    },
+                                                    "subtotal": {
+                                                        "type": "string",
+                                                        "description": "The subtotal of the order (calculated by the equation `product_price` x `qty`)."
+                                                    },
+                                                    "shipping_cost": {
+                                                        "type": "string",
+                                                        "description": "The cost of the shipping at time of purchase."
+                                                    },
+                                                    "order_fee": {
+                                                        "type": "string",
+                                                        "description": "The cost of the service fee at the tiem of purchase."
+                                                    },
+                                                    "order_total": {
+                                                        "type": "string",
+                                                        "description": "The total paid for the order (calculated by the equation `subtotal` + `shipping_cost` + `order_fee`)."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "order_data": {
+                                        "order_id": 145,
+                                        "order_number": "EO-00145"
+                                    },
+                                    "order_totals": {
+                                        "currency": "AUD",
+                                        "product_price": 110,
+                                        "qty": 2,
+                                        "subtotal": 242,
+                                        "shipping_cost": 22,
+                                        "order_fee": 9.68,
+                                        "order_total": 251.68
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gift-link": {
+            "post": {
+                "summary": "Place a gifting order",
+                "operationId": "placeGiftingOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "description": "This the product id of the product that you want to gift."
+                                    },
+                                    "variation_id": {
+                                        "type": "integer",
+                                        "description": "The variation id of the product you would like to gift. Only needed if the product is a variable product."
+                                    },
+                                    "currency": {
+                                        "type": "integer",
+                                        "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
+                                    },
+                                    "base_location": {
+                                        "type": "integer",
+                                        "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
+                                    },
+                                    "gift_of_choice": {
+                                        "type": "integer",
+                                        "description": "An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N`."
+                                    },
+                                    "order_branding": {
+                                        "type": "integer",
+                                        "description": "The type of branding that you are want for your gift link. This is either `elliephant` or `company`. `company` can only be used if your company branding as been set in your company profile."
+                                    },
+                                    "recipient_details": {
+                                        "type": "array",
+                                        "description": "An array of information about the recipient.",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "description": "The first name of your recipient."
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "description": "The last name of your recipient."
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "description": "The full email address of your recipient."
+                                                },
+                                                "phone_number": {
+                                                    "type": "string",
+                                                    "description": "The phone number of your recipient."
+                                                },
+                                                "delivery_address": {
+                                                    "type": "object",
+                                                    "description": "An array containing the address of the recipient.",
+                                                    "properties": {
+                                                        "address_line_1": {
+                                                            "type": "string",
+                                                            "description": "Line 1 of the address field."
+                                                        },
+                                                        "address_line_2": {
+                                                            "type": "string",
+                                                            "description": "Line 2 of the address field."
+                                                        },
+                                                        "suburb": {
+                                                            "type": "string",
+                                                            "description": "The suburb or town of the address."
+                                                        },
+                                                        "state": {
+                                                            "type": "string",
+                                                            "description": "The state or providence of the address."
+                                                        },
+                                                        "postcode_zipcode": {
+                                                            "type": "string",
+                                                            "description": "The postcode or zipcode of the address."
+                                                        },
+                                                        "country": {
+                                                            "type": "string",
+                                                            "description": "The country of the address as the full country name eg Australia, England, Singapore etc."
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "description": "Detail on if the order was placed successfully. Will either be `success` or `error`"
+                                        },
+                                        "order_data": {
+                                            "type": "array",
+                                            "description": "An array containing the order values.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "order_id": {
+                                                        "type": "integer",
+                                                        "description": "The ID of the order in our system, this is the ID used to get the order details later."
+                                                    },
+                                                    "order_number": {
+                                                        "type": "string",
+                                                        "description": "The order number that is used for reference, this will be in the format EO-00000."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "order_totals": {
+                                            "type": "array",
+                                            "description": "An array containing the order totals.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "description": "The currency you payed in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
+                                                    },
+                                                    "product_price": {
+                                                        "type": "string",
+                                                        "description": "The price of the product at time of purchase."
+                                                    },
+                                                    "qty": {
+                                                        "type": "string",
+                                                        "description": "Total amount of items purchased."
+                                                    },
+                                                    "subtotal": {
+                                                        "type": "string",
+                                                        "description": "The subtotal of the order (calculated by the equation `product_price` x `qty`)."
+                                                    },
+                                                    "shipping_cost": {
+                                                        "type": "string",
+                                                        "description": "The cost of the shipping at time of purchase."
+                                                    },
+                                                    "order_fee": {
+                                                        "type": "string",
+                                                        "description": "The cost of the service fee at the tiem of purchase."
+                                                    },
+                                                    "order_total": {
+                                                        "type": "string",
+                                                        "description": "The total paid for the order (calculated by the equation `subtotal` + `shipping_cost` + `order_fee`)."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "recipient_return": {
+                                            "type": "array",
+                                            "description": "An array containing the recipient details.",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "suborder_id": {
+                                                        "type": "integer",
+                                                        "description": "The id of the order used for identification in our system."
+                                                    },
+                                                    "suborder_number": {
+                                                        "type": "string",
+                                                        "description": "The order number that is used for reference, this will be in the format EO-00000-00."
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "description": "The first name of your recipient."
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "description": "The last name of your recipient."
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "description": "The full email address of your recipient."
+                                                    },
+                                                    "gift_url": {
+                                                        "type": "string",
+                                                        "description": "The gifting URL to share with your recipient."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "status": "success",
+                                    "order_data": {
+                                        "order_id": 152,
+                                        "order_number": "EO-00152"
+                                    },
+                                    "order_totals": {
+                                        "currency": "AUD",
+                                        "product_price": 110,
+                                        "qty": 2,
+                                        "shipping_cost": 22,
+                                        "subtotal": 242,
+                                        "order_fee": 9.68,
+                                        "order_total": 251.68
+                                    },
+                                    "recipient_return": [
+                                        {
+                                            "suborder_id": 357,
+                                            "suborder_number": "EO-00152-1",
+                                            "first_name": "John",
+                                            "last_name": "Doe",
+                                            "email": "john.doe@example.com",
+                                            "gift_url": "https://elliephantv2.com/redeem-your-gift/bfb7f903acf87bfea4c9698f3e2a6138"
+                                        },
+                                        {
+                                            "suborder_id": 358,
+                                            "suborder_number": "EO-00152-2",
+                                            "first_name": "Jane",
+                                            "last_name": "Smith",
+                                            "email": "j.smith@example.com",
+                                            "gift_url": "https://elliephantv2.com/redeem-your-gift/a5c7ba3d3d4c7250ccc3191a938030d5"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "description": "Detail on if the order was placed successfully. Will either be `success` or `error`"
+                                        },
+                                        "message": {
+                                            "type": "integer",
+                                            "description": "The message returned with the error"
+                                        }                                        
+                                    }
+                                },
+                                "example": {
+                                    "status": "error",
+                                    "message": "You need to set a product_id"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/credit-balance": {
+            "get": {
+                "summary": "Retrieve current credit balance",
+                "operationId": "getBalance",
+                "parameters": [
+                    {
+                        "name": "currency",
+                        "in": "query",
+                        "description": "The currency you want the return in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "AUD"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "credit_balance": {
+                                            "type": "string",
+                                            "description": "The base number value of credit remaining"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "description": "The currency the total is returned in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD"
+                                        },
+                                        "credit_balance_formatted": {
+                                            "type": "string",
+                                            "description": "Your credit balance formated"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "credit_balance": 99064.44,
+                                    "currency": "AUD",
+                                    "credit_balance_formatted": "A$99,064.44"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ClientIdAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "CLIENT-ID"
+            },
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "API-KEY"
+            },
+            "ApiPasswordAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "API-PASSWORD"
+            }
+        }
+    },
+    "security": [
+        {
+            "ClientIdAuth": [],
+            "ApiKeyAuth": [],
+            "ApiPasswordAuth": []
+        }
+    ]
+}
+```
+</CodeGroup>
