@@ -976,11 +976,11 @@
                                         "description": "The variation id of the product you would like to gift. Only needed if the product is a variable product."
                                     },
                                     "currency": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
                                     },
                                     "base_location": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
                                     },
                                     "recipient_details": {
@@ -1153,19 +1153,19 @@
                                         "description": "The variation id of the product you would like to gift. Only needed if the product is a variable product."
                                     },
                                     "currency": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
                                     },
                                     "base_location": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
                                     },
                                     "gift_of_choice": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N`."
                                     },
                                     "order_branding": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "description": "The type of branding that you are want for your gift link. This is either `elliephant` or `company`. `company` can only be used if your company branding as been set in your company profile."
                                     },
                                     "recipient_details": {
