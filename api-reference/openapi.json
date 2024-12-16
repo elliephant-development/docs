@@ -978,12 +978,10 @@
                                 "properties": {
                                     "order_ref_id": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "ID generated from your system passed to ours that is the unique reference number for this order."
                                     },
                                     "product_id": {
                                         "type": "integer",
-                                        "required":true,
                                         "description": "This the product id of the product that you want to gift."
                                     },
                                     "variation_id": {
@@ -992,44 +990,36 @@
                                     },
                                     "currency": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
                                     },
                                     "base_location": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
                                     },
                                     "recipient_details": {
                                         "type": "array",
-                                        "required":true,
                                         "description": "An array of information about the recipient.",
                                         "items": {
                                             "type": "object",
                                             "properties": {
                                                 "first_name": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The first name of your recipient."
                                                 },
                                                 "last_name": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The last name of your recipient."
                                                 },
                                                 "email": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The full email address of your recipient."
                                                 },
                                                 "phone_number": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The phone number of your recipient."
                                                 },
                                                 "delivery_address": {
                                                     "type": "object",
-                                                    "required":true,
                                                     "description": "An array containing the address of the recipient.",
                                                     "properties": {
                                                         "address_line_1": {
@@ -1169,12 +1159,10 @@
                                 "properties": {
                                     "order_ref_id": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "ID generated from your system passed to ours that is the unique reference number for this order."
                                     },
                                     "product_id": {
                                         "type": "integer",
-                                        "required":true,
                                         "description": "This the product id of the product that you want to gift."
                                     },
                                     "variation_id": {
@@ -1183,22 +1171,18 @@
                                     },
                                     "currency": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "The currency you would like to pay in. Sent in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. eg Australian Dollar is AUD."
                                     },
                                     "base_location": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "The country code in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format. eg AU for Australia."
                                     },
                                     "gift_of_choice": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "An option if you want your user to have an option to choose a different gift as a gift of choice. This is either a `Y` or `N`."
                                     },
                                     "order_branding": {
                                         "type": "string",
-                                        "required":true,
                                         "description": "The type of branding that you are want for your gift link. This is either `elliephant` or `company`. `company` can only be used if your company branding as been set in your company profile."
                                     },
                                     "recipient_details": {
@@ -1209,22 +1193,18 @@
                                             "properties": {
                                                 "first_name": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The first name of your recipient."
                                                 },
                                                 "last_name": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The last name of your recipient."
                                                 },
                                                 "email": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The full email address of your recipient."
                                                 },
                                                 "phone_number": {
                                                     "type": "string",
-                                                    "required":true,
                                                     "description": "The phone number of your recipient."
                                                 },
                                                 "delivery_address": {
