@@ -38,6 +38,15 @@
                             "type": "integer",
                             "default": 1
                         }
+                    },
+                    {
+                        "name": "product_type",
+                        "in": "query",
+                        "description": "The type of product you would like returned, either `physical` or `digital`. Leave blank to return all products.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
