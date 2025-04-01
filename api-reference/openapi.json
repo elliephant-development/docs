@@ -841,6 +841,10 @@
                                                                 "delivery_notes": {
                                                                     "type": "string",
                                                                     "description": "Any notes assigned to the delivery."
+                                                                },
+                                                                "gift_url": {
+                                                                    "type": "string",
+                                                                    "description": "The gifting URL to share with your recipient."
                                                                 }
                                                             }
                                                         }
@@ -903,7 +907,8 @@
                                                     "country": null
                                                 },
                                                 "phone_number": "NA",
-                                                "delivery_notes": null
+                                                "delivery_notes": null,
+                                                "gift_url": "https://members.elliephant.com/redeem-your-gift/a1b2c3"
                                             },
                                             "redemption_status": null,
                                             "product_selected": {
